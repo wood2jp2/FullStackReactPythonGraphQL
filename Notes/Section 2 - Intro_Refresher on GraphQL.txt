@@ -1,0 +1,76 @@
+Lecture 3: Queries, Using GraphiQL, GraphQL compared to REST
+    - What is GraphQL? A query language which gives us more control on how to use data within our apps.
+    - GraphiQL (pronounced graphical) allows us to interact with data within our app.
+        An example GraphQL query might look like:
+
+        {
+            field(arg: "value") {
+                subField
+            }
+        }
+    - Think about "overfetching" where when you call an API, say to get users, you get ALL the users. however, what if you only want certain subfields within each user? GraphQL solves this.
+        GraphQL.org/swapi-GraphQL
+        + Getting only certain fields off of all films in the star wars franchise becomes like so, which gives us back JSON of the films with just the fields we request. I'd imagine that this is performance-concious as well: 
+            {
+                allFilms{
+                    films {
+                    title
+                    director
+                    }
+                }
+            }
+
+Lecture 4: GraphQL Type System / Schema, Object vs. Scalar Types, Arguments
+    - GraphQL is strongly-typed, which means all fields have a type associated with it, which it's validated against. (Objects, Arrays, Strings)
+        + These schemas are a blueprint for our data. The arguments/fields being requested must be defined in your schema (obviously).
+        + Root query type: all fields are defined under this. By exploring this, you can see what fields are available underneath each query, and what type they return.
+            allFilms: FilmConnection
+            FilmsConnection:
+                films:[Film] // array of films
+                totalCount: Int
+                    Film: 
+                        title: String
+                        episodeID: Int
+        
+        + ScalarTypes:
+            1. Integers
+            2. Floats (decimals)
+            3. Strings
+            4. Booleans
+            5. IDs
+        + ObjectTypes: 
+    - What if we want a specific film? In this case, each film takes an ID argument
+        {
+            film(filmID: "1") { // if the type of the argument is incorrect (integer instead of string) you will get an error
+                title
+                episodeID
+            }        
+        }
+
+Lecture 5: Mutations for Creating, Updating, Deleting Data in GraphQL
+    - Mutations are for GraphQL operations on data other than reading data
+        + When defined, these need to be prepended with the word 'mutation'. Shell
+        mutation {
+            mutationName(informationFields: {
+                field1: value,
+                field2: value2,
+            }) {
+                returnValue1
+                returnValue2
+            }
+        }
+        + These can vary depending on if you are creating, updating, or deleting. A delete query might only need the name or ID of the object being deleted, as well as what you want to see returned.
+    - NOTE: fields with an exclamation point at the end means it is required. 
+
+Lecture 6: Dynamic Values in Queries / Mutations with GraphQL Variables
+    - GraphQL has the concept of variables to use in queries or mutations, and those will need to be defined in the parenthesis following the mutation keyword.
+        + Variables are declared with a dollar sign prepended, as well as a type (and required ! if needed)
+    mutation ($name: String!, $votes: Int!){
+        createBaby(babyInfo: {
+            name: $name,
+            votes: $votes
+        }) {
+            name
+            votes
+        }
+    }
