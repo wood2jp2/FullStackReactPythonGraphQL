@@ -1,2 +1,18 @@
 Lecture 7: Hello World in Graphene
     - Graphene: tool that allows use of GraphQL with Python.
+
+    1. Created new folder with schema.py added to it in python-graphene.
+    2. Ran 'pipenv shell' to create a virtual environment within the directory, and creates a Pipfile for us, which will help us track the packages we have in our project (package.json..?)
+        + To confirm you are in a virtual environment, your project name will be in parenthesis.
+        + To exit the environment, run 'exit' and to re-enter, run 'pipenv shell'
+    3. Installed package 'graphene' with command: 'pipenv install graphene'
+        + Under packages in Pipfile now.
+    4. In schema.py, we imported graphene, and created a query to run. We then imported the 'json' package in order to format our dictionary response to JSON.
+        + Our query needs a resolver function, which always must be prepended with the word 'resolve'
+
+Lecture 8: Syntax in Graphene: Snake-Case vs Camel Case
+    - 
+
+    1. We added an 'is_admin' field to our existing schema which returns a boolean.
+    2. We modified our query result to return { isAdmin }
+        + These queries MUST be in camel-case, and NOT snake-case, otherwise you will get an error.

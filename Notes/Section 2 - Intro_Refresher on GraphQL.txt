@@ -10,7 +10,7 @@ Lecture 3: Queries, Using GraphiQL, GraphQL compared to REST
         }
     - Think about "overfetching" where when you call an API, say to get users, you get ALL the users. however, what if you only want certain subfields within each user? GraphQL solves this.
         GraphQL.org/swapi-GraphQL
-        + Getting only certain fields off of all films in the star wars franchise becomes like so, which gives us back JSON of the films with just the fields we request. I'd imagine that this is performance-concious as well: 
+        + Getting only certain fields off of all films in the star wars franchise becomes like so, which gives us back JSON of the films with just the fields we request. I'd imagine that this is performance-conscious as well: 
             {
                 allFilms{
                     films {
