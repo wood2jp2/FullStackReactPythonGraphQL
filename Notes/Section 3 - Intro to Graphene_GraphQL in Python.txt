@@ -16,3 +16,21 @@ Lecture 8: Syntax in Graphene: Snake-Case vs Camel Case
     1. We added an 'is_admin' field to our existing schema which returns a boolean.
     2. We modified our query result to return { isAdmin }
         + These queries MUST be in camel-case, and NOT snake-case, otherwise you will get an error.
+
+Lecture 9: Object Types, Arguments in queries
+    - It is useful to know how to handle data with multiple subfields (not just one)
+    - It's also useful to be able to utilize arguments in your query. What if you only wanted the first user to show, not all?
+        + We need to define the argument by passing an argument into the users variable, where we outline what will be returned. In this case, limit is an int. We need to declare the type of the argument as well.
+        + We need to do something with that argument in the resolver function. In this case, we are slicing the list by the limit received.
+        + Lastly, we need to pass the value into the actual query string.
+        NOTE: pass in a default value so that if there is no argument given, it does not throw an error.
+
+    1. First, we created another class to model a User with three fields (ID, username, createdAt)
+    2. Now we want to create a query to handle getting all available Users.
+        + This must be added to the Query class.
+        + the Users query will return a graphene List of Users
+    3. Next we need to write the resolver function to grab all users.
+        + We're adding users in the resolver here too
+    4. Now, we can use our query to outline users and which fields we want to see returned when we look for all users!
+
+Lecture 10: Mutations / Default Values
