@@ -34,3 +34,39 @@ Lecture 9: Object Types, Arguments in queries
     4. Now, we can use our query to outline users and which fields we want to see returned when we look for all users!
 
 Lecture 10: Mutations / Default Values
+    - Next, we want the ability to add a piece of data, which is done through a mutation.
+
+    1. You need to add a Mutation class to our schema.py file, which again inherits from graphene.ObjectType
+        + This will include any mutations that you will manually outline. In our case, CreateUser will be a mutation.
+    2. Since we've added CreateUser to the Mutation class, we need to create a mutation class for CreateUser.
+        + Any arguments passed in must be outlined in a subclass called Arguments within. It will equal whatever type that that field is. 
+        + Also, on this mutation class, we need to define a mutate method as well, which takes in self, info, and whatever arguments you outlined above and that it needs to be passed.
+    3. On the CreateUser class, define the type that a user will be, which is graphene.Field(User). This will be fed to the type User upon creation.
+    4. Make sure where you define 'schema', you also feed in mutation=Mutation class.
+    5. NOTE: Instead of feeding into our mutate functions values like id and createdAt, we can set those to default values upon instance generation within our User class.
+
+Lecture 11: Variables in Queries / Mutations
+    - Until now we hardcoded values into our queries. It will be useful to pass in dynamic values and create/edit/delete etc based off of those values.
+        + These are added as arguments to the mutation query and is prepended by a $. You also need to outline the type.
+        + Then you can replace any hardcoded values with that new variable.
+    - After the schema is edited to take in dynamic values, you can pass in as the second arg to schema.execute a variable_values dictionary with the dynamic values outlined.
+
+Lecture 12: Self and Info Values
+    - Now for the sake of our application, let's say that we want users to be able to post blogs, with a title and content.
+    - We need to create a Post class, as well as add a mutation named in kind to the Mutation class.
+        + On the post class we simply add the field names and their respective types.
+        + We then need a mutation method which creates a Post which we call CreatePost. 
+            > This will take two arguments (title and content)
+            > It also needs to outline a mutate method which takes the two args and self and info
+            > It returns the post passed into CreatePost
+    - Lastly, we change our query to execute a mutation on CreatePost and we can pass in the hardcoded values.
+        + NOTE: Types must be in double-quotes
+    
+    - The info value has something called context on it, which can be accessed and passes info about the current user on it.
+        + We can do things like set values, or check if a user is authenticated, and if not, prevent them from accessing certain privileges like posting.
+        + Context is a dictionary that can have any values you'd like, and can be passed into schema.execute
+    
+    - Self: This can help when you are calculating a certain value on the class instance based off two existing fields.
+        + In our case, our user's avatar url is calculated based on a combo of the uuid and their username.
+    - In the User class (think, we're instantiating the field with the instance of the class), you can define a resolver method for the field (resolve_avatar_url).
+        + This takes in self and info, and the other fields being calculated can be accessed through self. Return the value as calculated in this function.

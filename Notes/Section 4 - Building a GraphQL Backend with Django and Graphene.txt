@@ -1,0 +1,33 @@
+Lecture 13 - Creating Base Django Project
+    - We're going to use graphene-django to build out the back end on the course project (react-tracks) here.
+        + Going to use a GraphQL IDE.
+    
+    1. Create directory, navigate to, and start virtual environment within.
+        + pipenv shell
+            > Creates Pipfile to track our packages.
+    2. Install django, graphene-django, django-graphql-jwt, django-cors-headers
+    3. pipenv install --dev autopep8
+        + This is an code formatter installed as a dev package.
+    4. Then we need to initialize our django project with 'django-admin startproject app'
+    5. Next we need to create a database with base database tables in it.
+        + Change directory into app.
+        + We need to migrate the tables with 'python manage.py migrate' which generates the db.sqlite3 file.
+    6. Last we can start the project with 'python manage.py runserver' to prove that it works.
+
+Lecture 14: Making Tracks App / Modeling Track Data
+    - Remember, Django separates projects into 'apps' which helps with separation of concerns.
+        + We are going to have an app per type of data, one for track and one for user.
+        + initialize an app with 'python manage.py startapp tracks'
+    - We need to now model our tracks.
+        + Django is going to take this and create a database table for us.
+        + Supply fields as well as their types from the models object
+    - Once the new model is complete, we need to activate it.
+        + Go to the sub app folder in settings.py, and add the app name (tracks) to the list of Apps.
+        + Two Steps: 
+            1. Create migration file with the makemigrations command, which will generate the sql commands that allows us to interact with our DB based off what was defined.
+                > python manage.py makemigrations
+            2. After you run makemigrations, make sure that you migrate the app that you just made a migration within.
+                > 'python manage.py migrate'
+
+Lecture 15: Adding Track Data / Creating Schema with Graphene-Django
+    - 
