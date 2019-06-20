@@ -30,4 +30,15 @@ Lecture 14: Making Tracks App / Modeling Track Data
                 > 'python manage.py migrate'
 
 Lecture 15: Adding Track Data / Creating Schema with Graphene-Django
-    - 
+    - We can create data easily in Django using the shell (not just the admin panel in Django)
+        + python manage.py shell will bring up the interactive console.
+        + import your model, then it's Model.objects.create(args)
+        + In our case, we imported Track into the console and then Track.objects.create(...args)
+    - Now, we can bring in Graphene in order to query for the tracks.
+        + This is done in the app.settings file and add it to the installed apps list.
+        + graphene_django
+    - Then, you also want to add a GRAPHENE dictionary that tells you where the schema/schema file lies, which is going to be in the tracks folder as a schema.py
+    - In our schema.py, we want to add a type which will coincide with our Track datatype (TrackType)
+    - Then, we want to outline a Query class which will retrieve all our Tracks. This will include a resolver function which returns the list.
+    - Last we need the actual schema to live in the app folder. It will be more convenient for general schema to live in app folder across our apps (separation of concerns)
+        + This will be a schema.py
